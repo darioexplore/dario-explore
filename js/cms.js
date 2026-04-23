@@ -253,10 +253,15 @@ function renderClients(clients) {
     return `<span>${c.name || ''}</span>`;
   }
 
-  const items = [...valid, ...valid]; // duplicate for seamless loop
-  track.innerHTML = items.map((c, i) =>
-    `<div class="logos__item"${i >= valid.length ? ' aria-hidden="true"' : ''}>${clientImg(c)}</div>`
-  ).join('');
+  // Repeat items until we have at least 20 per half — guarantees viewport fill on any screen
+  let set = [...valid];
+  while (set.length < 20) set = [...set, ...valid];
+
+  // First half (visible) + second half (duplicate, aria-hidden) = seamless translateX(-50%) loop
+  track.innerHTML = [
+    ...set.map(c  => `<div class="logos__item">${clientImg(c)}</div>`),
+    ...set.map(c  => `<div class="logos__item" aria-hidden="true">${clientImg(c)}</div>`),
+  ].join('');
 }
 
 /* ────────────────────────────────────────────────────────
