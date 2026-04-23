@@ -236,22 +236,29 @@ function renderClients(clients) {
   const track = document.querySelector('.logos__track');
   if (!track || !clients?.length) return;
 
+  // If Sanity still has old string-format data, leave the hardcoded HTML as-is
+  if (typeof clients[0] === 'string') return;
+
+  // Filter out entries with no logo source at all
+  const valid = clients.filter(c => c && (c.logoRef || c.domain || c.name));
+  if (!valid.length) return;
+
   function clientImg(c) {
     if (c.logoRef) {
-      // Uploaded Sanity image
+      // Uploaded PNG in Sanity
       const src = imageUrl(c.logoRef, { h: 64, fit: 'max', q: 90 });
-      return `<img src="${src}" alt="${c.name}" loading="lazy" />`;
+      return `<img src="${src}" alt="${c.name || ''}" loading="lazy" />`;
     }
     if (c.domain) {
-      // Clearbit fallback
-      return `<img src="https://logo.clearbit.com/${c.domain}" alt="${c.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">${c.name}</span>`;
+      // Auto-fetch from Clearbit using domain
+      return `<img src="https://logo.clearbit.com/${c.domain}" alt="${c.name || ''}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">${c.name || ''}</span>`;
     }
-    return `<span>${c.name}</span>`;
+    return `<span>${c.name || ''}</span>`;
   }
 
-  const items = [...clients, ...clients]; // duplicate for seamless loop
+  const items = [...valid, ...valid]; // duplicate for seamless loop
   track.innerHTML = items.map((c, i) =>
-    `<div class="logos__item"${i >= clients.length ? ' aria-hidden="true"' : ''}>${clientImg(c)}</div>`
+    `<div class="logos__item"${i >= valid.length ? ' aria-hidden="true"' : ''}>${clientImg(c)}</div>`
   ).join('');
 }
 
