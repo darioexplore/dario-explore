@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5" />
+  <title>Case Study — Dario Explore</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <div class="loader" aria-hidden="true">
+    <div class="loader__bar"><span></span></div>
+    <div class="loader__count">000</div>
+  </div>
+
+  <div class="cursor" aria-hidden="true">
+    <div class="cursor__dot"></div>
+    <div class="cursor__ring"></div>
+  </div>
+
+  <header class="site-header is-scrolled">
+    <a href="../index.html" class="site-header__logo">Dario <em>Explore</em></a>
+    <nav class="site-header__nav">
+      <a href="../index.html#work">Work</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#services">Services</a>
+      <a href="../index.html#approach">Approach</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+    <a href="../index.html#contact" class="site-header__cta">Let's work together</a>
+    <button class="site-header__burger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <div class="drawer" aria-hidden="true">
+    <nav class="drawer__nav">
+      <a href="../index.html#work">Work</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#journal">Journal</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+  </div>
+
+  <main>
+    <a href="../index.html#work" class="project-back">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <path d="M14 9H4M4 9l5-5M4 9l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      All work
+    </a>
+
+    <section class="project-hero">
+      <p class="project-hero__breadcrumb">
+        <a href="../index.html">Home</a>
+        &nbsp;/&nbsp;
+        <a href="../index.html#work">Work</a>
+        &nbsp;/&nbsp;
+        <span data-field="name">Loading…</span>
+      </p>
+
+      <h1 class="project-hero__title" data-field="title">Loading…</h1>
+      <p class="project-hero__lead" data-field="lead"></p>
+
+      <dl class="project-hero__meta">
+        <div><dt>Client</dt><dd data-field="client"></dd></div>
+        <div><dt>Location</dt><dd data-field="location"></dd></div>
+        <div><dt>Year</dt><dd data-field="year"></dd></div>
+        <div><dt>Type</dt><dd data-field="type"></dd></div>
+      </dl>
+    </section>
+
+    <div class="project-cover">
+      <img data-field="cover" src="" alt="" />
+    </div>
+
+    <article class="project-body">
+      <h2>The <em>Story</em></h2>
+      <p data-field="story"></p>
+
+      <h2>How it <em>Was Made</em></h2>
+      <p data-field="made"></p>
+
+      <div class="project-gallery">
+        <img data-field="gallery1" src="" alt="" />
+        <img data-field="gallery2" src="" alt="" />
+      </div>
+
+      <h2>The <em>Result</em></h2>
+      <p data-field="result"></p>
+
+      <div class="project-gallery project-gallery--full">
+        <img data-field="gallery3" src="" alt="" />
+      </div>
+    </article>
+
+    <a class="project-next" href="#" data-field="nextLink">
+      <div>
+        <p class="project-next__label">Next project</p>
+        <h3 class="project-next__title"><em data-field="nextName"></em></h3>
+      </div>
+      <div class="project-next__arrow">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+      </div>
+    </a>
+  </main>
+
+  <footer class="footer">
+    <a href="../index.html" class="footer__wordmark">Dario <em>Explore</em></a>
+    <nav class="footer__nav">
+      <a href="../index.html#work">Work</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#journal">Journal</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+    <div class="footer__right">
+      <a href="#">Instagram</a>
+      <a href="#">YouTube</a>
+      <span>© 2025 Dario Viegas</span>
+    </div>
+  </footer>
+
+  <script src="../js/main.js" defer></script>
+  <script type="module" src="../js/project.js"></script>
+</body>
+</html>
