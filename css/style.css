@@ -3,6 +3,46 @@
    Light warm-grey palette
    ========================================================= */
 
+/* ── Custom fonts ─────────────────────────────────────────
+   Place font files in /fonts/ with these exact names:
+   · DrukWide-Medium.woff2   (or DrukWide-Medium.woff)
+   · DrukWide-Bold.woff2
+   · ABCDiatypeMono-Regular-Trial.woff2
+   · ABCDiatypeMono-Medium-Trial.woff2
+   ──────────────────────────────────────────────────────── */
+@font-face {
+  font-family: 'Druk Wide';
+  src: url('../fonts/DrukWide-Medium.woff2') format('woff2'),
+       url('../fonts/DrukWide-Medium.woff')  format('woff');
+  font-weight: 500;
+  font-style:  normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Druk Wide';
+  src: url('../fonts/DrukWide-Bold.woff2') format('woff2'),
+       url('../fonts/DrukWide-Bold.woff')  format('woff');
+  font-weight: 700;
+  font-style:  normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ABC Diatype Mono';
+  src: url('../fonts/ABCDiatypeMono-Regular-Trial.woff2') format('woff2'),
+       url('../fonts/ABCDiatypeMono-Regular-Trial.woff')  format('woff');
+  font-weight: 400;
+  font-style:  normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ABC Diatype Mono';
+  src: url('../fonts/ABCDiatypeMono-Medium-Trial.woff2') format('woff2'),
+       url('../fonts/ABCDiatypeMono-Medium-Trial.woff')  format('woff');
+  font-weight: 500;
+  font-style:  normal;
+  font-display: swap;
+}
+
 :root {
   --bg:        #f0eeeb;
   --bg-soft:   #e9e7e3;
@@ -13,9 +53,10 @@
   --line:      rgba(17, 17, 16, 0.1);
   --accent:    #9a6f3c;
 
-  --serif: "Instrument Serif", "Times New Roman", serif;
-  --sans:  "Inter", system-ui, -apple-system, sans-serif;
-  --mono:  "Space Grotesk", ui-monospace, Menlo, monospace;
+  /* Druk Wide → display titles   |   ABC Diatype Mono → everything else */
+  --serif: "Druk Wide",       "Arial Black", Impact, sans-serif;
+  --sans:  "ABC Diatype Mono", "Courier New", monospace;
+  --mono:  "ABC Diatype Mono", "Courier New", monospace;
 
   --radius-sm: 8px;
   --radius-md: 16px;
@@ -41,8 +82,9 @@ body {
   background: var(--bg);
   color: var(--fg);
   font-family: var(--sans);
-  font-size: 15px;
-  line-height: 1.5;
+  font-size: 14px;          /* mono reads slightly larger — step down 1px */
+  line-height: 1.6;
+  letter-spacing: 0.01em;   /* mono benefits from a tiny tracking boost */
   overflow-x: hidden;
   cursor: none;
 }
