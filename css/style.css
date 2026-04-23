@@ -362,11 +362,20 @@ button { font: inherit; cursor: none; background: none; border: 0; padding: 0; }
 }
 .logos__item:hover { opacity: 0.8; }
 .logos__item img {
-  height: 32px; width: auto;
+  height: 28px; width: auto;
   max-width: 120px;
-  filter: grayscale(1);
+  filter: grayscale(1) brightness(0);
   display: block;
   object-fit: contain;
+}
+/* Wordmark fallback — shows when no image is uploaded */
+.logos__item span {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--fg);
+  white-space: nowrap;
 }
 @keyframes marquee {
   from { transform: translateX(0); }

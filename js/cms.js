@@ -245,14 +245,11 @@ function renderClients(clients) {
 
   function clientImg(c) {
     if (c.logoRef) {
-      // Uploaded PNG in Sanity
+      // Uploaded PNG in Sanity — this is the real logo
       const src = imageUrl(c.logoRef, { h: 64, fit: 'max', q: 90 });
       return `<img src="${src}" alt="${c.name || ''}" loading="lazy" />`;
     }
-    if (c.domain) {
-      // Auto-fetch from Clearbit using domain
-      return `<img src="https://logo.clearbit.com/${c.domain}" alt="${c.name || ''}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">${c.name || ''}</span>`;
-    }
+    // Styled wordmark fallback until a logo is uploaded
     return `<span>${c.name || ''}</span>`;
   }
 
