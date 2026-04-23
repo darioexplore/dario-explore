@@ -123,7 +123,7 @@ const QUERIES = {
   settings: `*[_type == "siteSettings"][0]{
     heroHeadline, heroSub,
     "clients": clients[]{
-      name, domain,
+      ...,
       "logoRef": logo.asset._ref
     }
   }`,
@@ -262,32 +262,33 @@ function renderClients(clients) {
 /* ────────────────────────────────────────────────────────
    BOOTSTRAP
    ──────────────────────────────────────────────────────── */
+async function safeFetch(query, fallback = null) {
+  try { return await fetchSanity(query); }
+  catch (err) { console.warn('[CMS] query failed:', err.message); return fallback; }
+}
+
 async function load() {
-  let data;
+  let data = { ...LOCAL };
 
   if (sanityConfig.enabled && sanityConfig.projectId !== 'YOUR_PROJECT_ID') {
-    try {
-      const [settings, projects, services, testimonials, journal] = await Promise.all([
-        fetchSanity(QUERIES.settings),
-        fetchSanity(QUERIES.projects),
-        fetchSanity(QUERIES.services),
-        fetchSanity(QUERIES.testimonials),
-        fetchSanity(QUERIES.journal),
-      ]);
-      data = { settings, projects, services, testimonials, journal };
-    } catch (err) {
-      console.warn('[CMS] Sanity fetch failed, using local data:', err);
-      data = LOCAL;
-    }
-  } else {
-    data = LOCAL;
+    // Fetch each query independently — one failure won't kill the rest
+    const [settings, projects, services, testimonials] = await Promise.all([
+      safeFetch(QUERIES.settings),
+      safeFetch(QUERIES.projects),
+      safeFetch(QUERIES.services),
+      safeFetch(QUERIES.testimonials),
+    ]);
+
+    if (settings)     data.settings     = settings;
+    if (projects?.length)    data.projects     = projects;
+    if (services?.length)    data.services     = services;
+    if (testimonials?.length) data.testimonials = testimonials;
   }
 
-  if (data.projects?.length)     renderProjects(data.projects);
-  if (data.services?.length)     renderServices(data.services);
-  if (data.testimonials?.length) renderTestimonials(data.testimonials);
-  if (data.journal?.length)      renderJournal(data.journal);
-  if (data.settings?.clients)    renderClients(data.settings.clients);
+  if (data.projects?.length)      renderProjects(data.projects);
+  if (data.services?.length)      renderServices(data.services);
+  if (data.testimonials?.length)  renderTestimonials(data.testimonials);
+  if (data.settings?.clients)     renderClients(data.settings.clients);
 
   window.dispatchEvent(new Event('cms:loaded'));
 }
