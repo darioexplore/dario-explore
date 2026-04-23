@@ -12,7 +12,17 @@ const LOCAL = {
   settings: {
     heroHeadline: "I film the world the way it *feels* not how it looks.",
     heroSub: "Based between Japan and wherever the next story takes me. I create cinematic films and photography for luxury hotels, travel brands, and the places most people fly over.",
-    clients: ['Aman','Rosewood','Fairmont','Six Senses','Capella','Patina','Anantara','Accor','Sony','Insta360'],
+    clients: [
+      { name: 'Aman',       domain: 'aman.com' },
+      { name: 'Rosewood',   domain: 'rosewoodhotels.com' },
+      { name: 'Fairmont',   domain: 'fairmont.com' },
+      { name: 'Six Senses', domain: 'sixsenses.com' },
+      { name: 'Capella',    domain: 'capellahotels.com' },
+      { name: 'Anantara',   domain: 'anantara.com' },
+      { name: 'Accor',      domain: 'accor.com' },
+      { name: 'Sony',       domain: 'sony.com' },
+      { name: 'Insta360',   domain: 'insta360.com' },
+    ],
   },
 
   projects: [
@@ -112,7 +122,10 @@ const LOCAL = {
 const QUERIES = {
   settings: `*[_type == "siteSettings"][0]{
     heroHeadline, heroSub,
-    "clients": clients[]
+    "clients": clients[]{
+      name, domain,
+      "logoRef": logo.asset._ref
+    }
   }`,
 
   projects: `*[_type == "project"] | order(order asc) {
@@ -222,9 +235,23 @@ function renderJournal(posts) {
 function renderClients(clients) {
   const track = document.querySelector('.logos__track');
   if (!track || !clients?.length) return;
+
+  function clientImg(c) {
+    if (c.logoRef) {
+      // Uploaded Sanity image
+      const src = imageUrl(c.logoRef, { h: 64, fit: 'max', q: 90 });
+      return `<img src="${src}" alt="${c.name}" loading="lazy" />`;
+    }
+    if (c.domain) {
+      // Clearbit fallback
+      return `<img src="https://logo.clearbit.com/${c.domain}" alt="${c.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">${c.name}</span>`;
+    }
+    return `<span>${c.name}</span>`;
+  }
+
   const items = [...clients, ...clients]; // duplicate for seamless loop
   track.innerHTML = items.map((c, i) =>
-    `<div class="logos__item"${i >= clients.length ? ' aria-hidden="true"' : ''}>${c}</div>`
+    `<div class="logos__item"${i >= clients.length ? ' aria-hidden="true"' : ''}>${clientImg(c)}</div>`
   ).join('');
 }
 

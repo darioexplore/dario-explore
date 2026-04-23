@@ -27,8 +27,16 @@ export default defineType({
     defineField({
       name: 'clients', title: 'Client / Trust Strip',
       type: 'array',
-      of: [{ type: 'string' }],
-      description: 'Names that scroll in the marquee under the hero.',
+      description: 'Logos that scroll in the marquee under the hero. Upload a PNG logo for each brand.',
+      of: [{
+        type: 'object',
+        fields: [
+          defineField({ name: 'name',   title: 'Brand name',    type: 'string', description: 'e.g. "Aman"' }),
+          defineField({ name: 'logo',   title: 'Logo (PNG)',     type: 'image',  description: 'Upload a transparent PNG logo.' }),
+          defineField({ name: 'domain', title: 'Domain (fallback)', type: 'string', description: 'If no logo uploaded, Clearbit will be used. e.g. "aman.com"' }),
+        ],
+        preview: { select: { title: 'name', media: 'logo' } },
+      }],
     }),
     defineField({
       name: 'aboutHeadline', title: 'About — Headline',

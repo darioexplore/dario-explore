@@ -334,7 +334,7 @@ button { font: inherit; cursor: none; background: none; border: 0; padding: 0; }
 
 /* ── Logo Marquee ── */
 .logos {
-  padding: clamp(44px, 5vw, 72px) 0;
+  padding: clamp(20px, 2.5vw, 36px) 0;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   background: var(--bg-soft);
@@ -343,7 +343,7 @@ button { font: inherit; cursor: none; background: none; border: 0; padding: 0; }
   text-align: center;
   font-family: var(--mono); font-size: 11px;
   letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--fg-muted); margin: 0 0 28px;
+  color: var(--fg-muted); margin: 0 0 16px;
 }
 .logos__viewport {
   overflow: hidden;
